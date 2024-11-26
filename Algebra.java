@@ -3,7 +3,7 @@
 // Math.sqrt. All the functions in this class operate on int values and
 // return int values.
 
-public class Algebra {
+public class first {
     public static void main(String args[]) {
         // Tests some of the operations
 
@@ -67,8 +67,18 @@ public class Algebra {
 
     // Returns the integer part of x1 / x2
     public static int div(int x1, int x2) {
-      // Replace the following statement with your code
-      return 0;
+        if (x2 == 0) {
+            return 0;
+        }
+
+        int quotient = 0;
+
+        while (x1 >= x2) {
+            x1 -= x2;
+            quotient++;
+        }
+        return quotient;
+
     }
 
     // Returns x1 % x2
