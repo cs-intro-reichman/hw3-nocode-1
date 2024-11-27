@@ -28,9 +28,18 @@ public class LoanCalc {
 	// Computes the ending balance of a loan, given the loan amount, the periodical
 	// interest rate (as a percentage), the number of periods (n), and the periodical payment.
 	private static double endBalance(double loan, double rate, int n, double payment) {	
-		// Replace the following statement with your code
-		return 0;
-	}
+		double realbalance = loan;
+		rate = rate / 100; 
+			for(int i=0; i < n; i++){
+				realbalance -= payment;
+				realbalance *= (rate+1);
+			} return realbalance;
+
+			
+
+			
+	
+		}
 	
 	// Uses sequential search to compute an approximation of the periodical payment
 	// that will bring the ending balance of a loan close to 0.
@@ -38,9 +47,20 @@ public class LoanCalc {
 	// the number of periods (n), and epsilon, the approximation's accuracy
 	// Side effect: modifies the class variable iterationCounter.
     public static double bruteForceSolver(double loan, double rate, int n, double epsilon) {
-		// Replace the following statement with your code
-		return 0;
-    }
+		iterationCounter = 0;
+		double g = loan / (double) n;
+	
+		if (endBalance(loan, rate, n, g) > 0) {
+			do {
+				iterationCounter++;
+				g = g + epsilon;
+			} while (endBalance(loan, rate, n, g) > 0);
+	
+		}
+		
+		return g;
+	}
+    
     
     // Uses bisection search to compute an approximation of the periodical payment 
 	// that will bring the ending balance of a loan close to 0.
@@ -48,7 +68,26 @@ public class LoanCalc {
 	// the number of periods (n), and epsilon, the approximation's accuracy
 	// Side effect: modifies the class variable iterationCounter.
     public static double bisectionSolver(double loan, double rate, int n, double epsilon) {  
-        // Replace the following statement with your code
+
+		double g = loan / (double) n;
+		double a = g;
+		double b = g + epsilon;
+		double c = (a + b) / 2;
+		iterationCounter = 0;
+
+		if (endBalance(loan, rate, n, c) > 0) {
+			do {
+				iterationCounter++;
+				c = (a + b) / 2;
+				if (endBalance(loan, rate, n, c) > 0) {
+					a = c;
+				} else {
+					b = c;
+				}
+			} while (endBalance(loan, rate, n, c) > 0);
+		}
+
+
 		return 0;
     }
 }
