@@ -28,8 +28,32 @@ public class Anagram {
 
 	// Returns true if the two given strings are anagrams, false otherwise.
 	public static boolean isAnagram(String str1, String str2) {
-		// Replace the following statement with your code
-		return false;
+		 // Preprocess both strings to remove non-alphabetic characters and convert to lowercase
+		 String processedStr1 = preProcess(str1);
+		 String processedStr2 = preProcess(str2);
+ 
+		 // Check if the lengths are equal
+		 if (processedStr1.length() != processedStr2.length()) {
+			 return false;
+		 }
+
+		 int[] charCount = new int[26];
+
+		 // Count characters in the first word
+		 for (char c : processedStr1.toCharArray()) {
+			 charCount[c - 'a']++;
+		 }
+	 
+		 // Check characters in the second word and decrement counts
+		 for (char c : processedStr2.toCharArray()) {
+			 charCount[c - 'a']--;
+			 if (charCount[c - 'a'] < 0) {
+				 return false;
+			 }
+		 }
+	
+
+		return true;
 	}
 	   
 	// Returns a preprocessed version of the given string: all the letter characters are converted
