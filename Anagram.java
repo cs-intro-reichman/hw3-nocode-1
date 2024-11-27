@@ -53,7 +53,7 @@ public class Anagram {
 		 }
 	
 
-		return false;
+		return true;
 	}
 	   
 	// Returns a preprocessed version of the given string: all the letter characters are converted
