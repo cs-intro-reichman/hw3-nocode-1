@@ -1,4 +1,8 @@
 /** Functions for checking if a given string is an anagram. */
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 public class Anagram {
 	public static void main(String args[]) {
 		// Tests the isAnagram function.
@@ -26,48 +30,54 @@ public class Anagram {
 		System.out.println(pass ? "test passed" : "test Failed");
 	}  
 
-	// Returns true if the two given strings are anagrams, false otherwise.
 	public static boolean isAnagram(String str1, String str2) {
-		 // Preprocess both strings to remove non-alphabetic characters and convert to lowercase
-		 String processedStr1 = preProcess(str1);
-		 String processedStr2 = preProcess(str2);
- 
-		 // Check if the lengths are equal
-		 if (processedStr1.length() != processedStr2.length()) {
-			 return false;
-		 }
+        // Preprocess both strings to remove non-alphabetic characters and convert to lowercase
+        String processedStr1 = preProcess(str1);
+        String processedStr2 = preProcess(str2);
 
-		 int[] charCount = new int[26];
+        // Check if the lengths are equal
+        if (processedStr1.length() != processedStr2.length()) {
+            return false;
+        }
 
-		 // Count characters in the first word
-		 for (char c : processedStr1.toCharArray()) {
-			 charCount[c - 'a']++;
-		 }
-	 
-		 // Check characters in the second word and decrement counts
-		 for (char c : processedStr2.toCharArray()) {
-			 charCount[c - 'a']--;
-			 if (charCount[c - 'a'] < 0) {
-				 return false;
-			 }
-		 }
-	
+        // Create a character count array
+        int[] charCount = new int[26];
+        for (char c : processedStr1.toCharArray()) {
+            charCount[c - 'a']++;
+        }
 
-		return true;
-	}
-	   
-	// Returns a preprocessed version of the given string: all the letter characters are converted
-	// to lower-case, and all the other characters are deleted, except for spaces, which are left
-	// as is. For example, the string "What? No way!" becomes "whatnoway"
-	public static String preProcess(String str) {
-		// Replace the following statement with your code
-		return "";
-	} 
-	   
-	// Returns a random anagram of the given string. The random anagram consists of the same
-	// characters as the given string, re-arranged in a random order. 
-	public static String randomAnagram(String str) {
-		// Replace the following statement with your code
-		return "";
-	}
-}
+        for (char c : processedStr2.toCharArray()) {
+            charCount[c - 'a']--;
+            if (charCount[c - 'a'] < 0) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    public static String preProcess(String str) {
+        StringBuilder sb = new StringBuilder();
+        for (char c : str.toCharArray()) {
+            if (Character.isLetter(c)) {
+                sb.append(Character.toLowerCase(c)); 
+
+            }
+        }
+        return sb.toString();
+    }
+
+    public static String randomAnagram(String str) {
+        List<Character> chars = new ArrayList<>();
+        for (char c : str.toCharArray()) {
+            chars.add(c);
+        }
+        Collections.shuffle(chars);
+
+        StringBuilder sb = new StringBuilder();
+        for (char c : chars) {
+            sb.append(c);
+        }
+        return sb.toString();
+
+    }}
