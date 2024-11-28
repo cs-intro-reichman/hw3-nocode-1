@@ -1,3 +1,5 @@
+
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -29,19 +31,17 @@ public class Anagram {
         }
         System.out.println(pass ? "test passed" : "test Failed");
     }
-
     public static boolean isAnagram(String str1, String str2) {
-        // Preprocess both strings to remove non-alphabetic characters and convert to
-        // lowercase
+        // Preprocess both strings
         String processedStr1 = preProcess(str1);
         String processedStr2 = preProcess(str2);
 
-        // checking length here
+        // Check lengths
         if (processedStr1.length() != processedStr2.length()) {
             return false;
         }
 
-        // amount of char to se if it is a Anagram in the first place
+        //  charakter count  for comparison
         int[] charCount = new int[26];
         for (char c : processedStr1.toCharArray()) {
             charCount[c - 'a']++;
@@ -54,11 +54,6 @@ public class Anagram {
             }
         }
 
-		// preserve spaces
-		if (str1.length() != str2.length()) {
-			return false;
-		}
-
         return true;
     }
 
@@ -67,7 +62,6 @@ public class Anagram {
         for (char c : str.toCharArray()) {
             if (Character.isLetter(c)) {
                 sb.append(Character.toLowerCase(c));
-
             }
         }
         return sb.toString();
@@ -85,17 +79,5 @@ public class Anagram {
             sb.append(c);
         }
         return sb.toString();
-
     }
 }
-
-
-
-
-
-
-
-
-
-
-
