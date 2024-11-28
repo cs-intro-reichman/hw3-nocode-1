@@ -28,13 +28,12 @@ public class LoanCalc {
 	// Computes the ending balance of a loan, given the loan amount, the periodical
 	// interest rate (as a percentage), the number of periods (n), and the periodical payment.
 	private static double endBalance(double loan, double rate, int n, double payment) {	
-		int realbalance = (int)loan;
-		int realrate = (int)rate; if (rate > 100);
-			for(int i=0; i < n; i++){
-				realbalance -= payment;
-				realbalance *= (realrate+1);
-			} return realbalance;
+		double newrate = rate/100;
+        for(int i=0; i < n; i++){
+				loan = ((loan-payment)*(1+newrate));
 		}
+        return loan;
+    }
 	
 	// Uses sequential search to compute an approximation of the periodical payment
 	// that will bring the ending balance of a loan close to 0.
@@ -42,17 +41,17 @@ public class LoanCalc {
 	// the number of periods (n), and epsilon, the approximation's accuracy
 	// Side effect: modifies the class variable iterationCounter.
     public static double bruteForceSolver(double loan, double rate, int n, double epsilon) {
-		iterationCounter = 0;
-		double g = loan / (double) n;
-	
-		if (endBalance(loan, rate, n, g) > 0) {
-			do {
-				iterationCounter++;
-				g = g + epsilon;
-			} while (endBalance(loan, rate, n, g) > 0);
-		}
-		return g;
-	}
+        double payment = loan / n;
+        for (int iterationCounter = 0; Math.abs(payment) > epsilon; iterationCounter++) {
+            double balance = endBalance(loan, rate, n, payment);
+            payment += epsilon;
+            if (balance <= epsilon) {
+                return payment;
+            }
+        }
+        return payment;
+    }
+    
     
     
     // Uses bisection search to compute an approximation of the periodical payment 
@@ -60,6 +59,21 @@ public class LoanCalc {
 	// Given: the sum of the loan, the periodical interest rate (as a percentage),
 	// the number of periods (n), and epsilon, the approximation's accuracy
 	// Side effect: modifies the class variable iterationCounter.
-  
-    
+public static double bisectionSolver(double loan, double rate, int n, double epsilon) {  
+    double payment = 0;
+    double a = 0;
+    double b = loan;
+    iterationCounter = 0;
+
+    for (; b - a >= epsilon; iterationCounter++) {
+        payment = (a + b) / 2;
+        double target = endBalance(loan, rate, n, payment);
+        if (target > 0) {
+            a = payment;
+        } else {
+            b = payment;
+        }
+    }
+    return payment;
 }
+
