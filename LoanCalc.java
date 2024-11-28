@@ -57,7 +57,7 @@ public static double bruteForceSolver(double loan, double rate, int n, double ep
             return payment; 
         }
     }
-    
+    return payment;
   
 }
 
@@ -79,7 +79,8 @@ public static double bisectionSolver(double loan, double rate, int n, double eps
 
         iterationCounter++; // Increment counter
     }
-    
+
+	return payment;
 
 }
 
