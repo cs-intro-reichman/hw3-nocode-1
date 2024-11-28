@@ -53,6 +53,7 @@ public static double bruteForceSolver(double loan, double rate, int n, double ep
         }
 	     }
 	 }
+}
 
 
 public static double bisectionSolver(double loan, double rate, int n, double epsilon) {  
@@ -72,7 +73,7 @@ public static double bisectionSolver(double loan, double rate, int n, double eps
 	        iterationCounter++; // Increment counter
     }
 
-
+}
 }
 
 
