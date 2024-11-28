@@ -3,7 +3,7 @@ import java.util.Collections;
 import java.util.List;
 
 public class Anagram {
-    public static void main(String args[]) {
+    public static void main(String[] args) {
         // Tests the isAnagram function.
         System.out.println(isAnagram("silent", "listen")); // true
         System.out.println(isAnagram("William Shakespeare", "I am a weakish speller")); // true
@@ -18,7 +18,7 @@ public class Anagram {
 
         // Performs a stress test of randomAnagram
         String str = "1234567";
-        Boolean pass = true;
+        boolean pass = true;
         //// 10 can be changed to much larger values, like 1000
         for (int i = 0; i < 10; i++) {
             String randomAnagram = randomAnagram(str);
@@ -41,16 +41,20 @@ public class Anagram {
             return false;
         }
 
-        // amount of char to se if it is a Anagram in the first place
+        // amount of char to se if it is an Anagram in the first place
         int[] charCount = new int[26];
         for (char c : processedStr1.toCharArray()) {
-            charCount[c - 'a']++;
+            if (c != ' ') { // Skip spaces
+                charCount[c - 'a']++;
+            }
         }
 
         for (char c : processedStr2.toCharArray()) {
-            charCount[c - 'a']--;
-            if (charCount[c - 'a'] < 0) {
-                return false;
+            if (c != ' ') { // skip space
+                charCount[c - 'a']--;
+                if (charCount[c - 'a'] < 0) {
+                    return false;
+                }
             }
         }
 
@@ -62,7 +66,8 @@ public class Anagram {
         for (char c : str.toCharArray()) {
             if (Character.isLetter(c)) {
                 sb.append(Character.toLowerCase(c));
-
+            } else if (c == ' ') {
+                sb.append(c); 
             }
         }
         return sb.toString();
@@ -80,6 +85,5 @@ public class Anagram {
             sb.append(c);
         }
         return sb.toString();
-
     }
 }
