@@ -44,45 +44,42 @@ public class LoanCalc {
 
 
 
-public static double bruteForceSolver(double loan, double rate, int n, double epsilon) { 
-    double payment = loan / n; // Initial payment guess
-    int iterationCounter = 0; // Initialize counter
+public static double bruteForceSolver(double loan, double rate, int n, double epsilon) {
+        double payment = loan / n; // Start with an initial guess
+        iterationCounter = 0; // Reset iteration counter
 
-    while (Math.abs(payment) > epsilon) { 
-        double balance = endBalance(loan, rate, n, payment);
-        payment += epsilon; // Increment payment
-        iterationCounter++; // Increment counter
+        while (true) {
+            iterationCounter++; // Increment the global iteration counter
+            double balance = endBalance(loan, rate, n, payment);
+            
+            if (Math.abs(balance) <= epsilon) {
+                return payment;
+            }
 
-        if (balance <= epsilon) {
-            return payment; 
+            payment += epsilon; // Increase the payment in small steps
         }
     }
-    return payment;
-  
-}
 
-public static double bisectionSolver(double loan, double rate, int n, double epsilon) {  
-    int iterationCounter = 0; 
-    double a = 0; 
-    double b = loan; 
-    double payment = 0;
+ public static double bisectionSolver(double loan, rate, int n, double epsilon) {
+        int iterationCounter = 0;
+        double a = 0;
+        double b = loan;
 
-    while (b - a >= epsilon) { 
-        payment = (a + b) / 2; 
-        double target = endBalance(loan, rate, n, payment);
+        while (b - a >= epsilon) {
+            double payment = (a + b) / 2;
+            double target = endBalance(loan, rate, n, payment);
 
-        if (target > 0) {
-            a = payment; 
-        } else {
-            b = payment; 
+            if (target > 0) {
+                a = payment;
+            } else {
+                b = payment;
+            }
+
+            iterationCounter++;
         }
 
-        iterationCounter++; // Increment counter
+        return (a + b) / 2;
     }
-
-	return payment;
-
-}
 
 
 }
