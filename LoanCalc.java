@@ -54,7 +54,6 @@ public static double bruteForceSolver(double loan, double rate, int n, double ep
         iterationCounter++; // Increment counter
 
         if (balance <= epsilon) {
-            System.out.println("Brute Force Iterations: " + iterationCounter); // Debug output
             return payment; 
         }
     }
