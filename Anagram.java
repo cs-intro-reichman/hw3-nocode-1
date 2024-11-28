@@ -1,13 +1,8 @@
-
-
-
-
-
-
-
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Anagram {
     public static void main(String args[]) {
@@ -36,6 +31,7 @@ public class Anagram {
         }
         System.out.println(pass ? "test passed" : "test Failed");
     }
+
     public static boolean isAnagram(String str1, String str2) {
         // Preprocess both strings
         String processedStr1 = preProcess(str1);
@@ -46,32 +42,35 @@ public class Anagram {
             return false;
         }
 
-        //  charakter count  for comparison
-        int[] charCount = new int[26];
+        // Use a Map to store character frequencies
+        Map<Character, Integer> charCount = new HashMap<>();
+
+        // Count character frequencies in the first string
         for (char c : processedStr1.toCharArray()) {
-            charCount[c - 'a']++;
+            charCount.put(c, charCount.getOrDefault(c, 0) + 1);
         }
 
+        // Decrement frequencies for characters in the second string
         for (char c : processedStr2.toCharArray()) {
-            charCount[c - 'a']--;
-            if (charCount[c - 'a'] < 0) {
+            charCount.put(c, charCount.getOrDefault(c, 0) - 1);
+            if (charCount.get(c) < 0) {
                 return false;
             }
         }
 
+        // If all frequencies are zero, it's an anagram
         return true;
     }
 
-
     public static String preProcess(String str) {
-		StringBuilder sb = new StringBuilder();
-		for (char c : str.toCharArray()) {
-			if (Character.isLetter(c) || Character.isWhitespace(c)) {
-				sb.append(Character.toLowerCase(c));
-			}
-		}
-		return sb.toString();
-	}
+        StringBuilder sb = new StringBuilder();
+        for (char c : str.toCharArray()) {
+            if (Character.isLetter(c) || Character.isWhitespace(c)) {
+                sb.append(Character.toLowerCase(c));
+            }
+        }
+        return sb.toString();
+    }
 
     public static String randomAnagram(String str) {
         List<Character> chars = new ArrayList<>();
