@@ -1,5 +1,10 @@
 
 
+
+
+
+
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -57,10 +62,11 @@ public class Anagram {
         return true;
     }
 
+
     public static String preProcess(String str) {
         StringBuilder sb = new StringBuilder();
         for (char c : str.toCharArray()) {
-            if (Character.isLetter(c)) {
+            if (Character.isLetterOrWhitespace(c)) {
                 sb.append(Character.toLowerCase(c));
             }
         }
