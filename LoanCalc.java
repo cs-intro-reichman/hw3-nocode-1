@@ -60,7 +60,7 @@ public static double bruteForceSolver(double loan, double rate, int n, double ep
         }
     }
 
- public static double bisectionSolver(double loan, rate, double int n, double epsilon) {
+ public static double bisectionSolver(double loan, double rate, double int n, double epsilon) {
         int iterationCounter = 0;
         double a = 0;
         double b = loan;
