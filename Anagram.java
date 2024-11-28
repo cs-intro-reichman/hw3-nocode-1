@@ -1,7 +1,7 @@
 import java.util.*;
 
 public class Anagram {
-    public static void main(String args[]) {
+    public static void main(String[] args) {
         // Tests the isAnagram function.
         System.out.println(isAnagram("silent", "listen")); // true
         System.out.println(isAnagram("William Shakespeare", "I am a weakish speller")); // true
@@ -9,7 +9,7 @@ public class Anagram {
         System.out.println(isAnagram("Tom Marvolo Riddle", "I am Lord Voldemort")); // true
 
         // Tests the preProcess function.
-        System.out.println(preProcess("What? No way!!!"));
+        System.out.println(preProcess("What? No way!!!")); // "what no way"
 
         // Tests the randomAnagram function.
         System.out.println("silent and " + randomAnagram("silent") + " are anagrams.");
@@ -28,31 +28,42 @@ public class Anagram {
     }
 
     public static boolean isAnagram(String str1, String str2) {
+        // Preprocess both strings.
         String processedStr1 = preProcess(str1);
         String processedStr2 = preProcess(str2);
 
-        // Checkks lengths.
+        // Remove spaces before comparing.
+        processedStr1 = processedStr1.replaceAll("\\s", "");
+        processedStr2 = processedStr2.replaceAll("\\s", "");
+
+        // Check lengths.
         if (processedStr1.length() != processedStr2.length()) {
             return false;
         }
 
+        // Use a Map to store character frequencies.
         Map<Character, Integer> charCount = new HashMap<>();
 
+        // Count character frequencies in the first string.
         for (char c : processedStr1.toCharArray()) {
             charCount.put(c, charCount.getOrDefault(c, 0) + 1);
         }
 
+        // Decrement frequencies for characters in the second string.
         for (char c : processedStr2.toCharArray()) {
             charCount.put(c, charCount.getOrDefault(c, 0) - 1);
             if (charCount.get(c) < 0) {
                 return false;
             }
         }
+
+        // If all frequencies are zero, it's an anagram.
         return true;
     }
 
     public static String preProcess(String str) {
-        return str.replaceAll("[^a-zA-Z]", "").toLowerCase();
+        // Remove non-alphabetic characters (except spaces) and convert to lowercase.
+        return str.replaceAll("[^a-zA-Z\\s]", "").toLowerCase();
     }
 
     public static String randomAnagram(String str) {
