@@ -1,5 +1,5 @@
 // Computes the periodical payment necessary to pay a given loan.
-public class LoanCal {
+public class LoanCalc {
 	
 	static double epsilon = 0.001;  // Approximation accuracy
 	static int iterationCounter;    // Number of iterations 
