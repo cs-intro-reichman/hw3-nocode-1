@@ -64,14 +64,14 @@ public class Anagram {
 
 
     public static String preProcess(String str) {
-        StringBuilder sb = new StringBuilder();
-        for (char c : str.toCharArray()) {
-            if (Character.isLetterOrWhitespace(c)) {
-                sb.append(Character.toLowerCase(c));
-            }
-        }
-        return sb.toString();
-    }
+		StringBuilder sb = new StringBuilder();
+		for (char c : str.toCharArray()) {
+			if (Character.isLetter(c) || Character.isWhitespace(c)) {
+				sb.append(Character.toLowerCase(c));
+			}
+		}
+		return sb.toString();
+	}
 
     public static String randomAnagram(String str) {
         List<Character> chars = new ArrayList<>();
