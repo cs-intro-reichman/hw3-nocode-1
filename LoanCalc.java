@@ -40,16 +40,20 @@ public class LoanCalc {
 	// Given: the sum of the loan, the periodical interest rate (as a percentage),
 	// the number of periods (n), and epsilon, the approximation's accuracy
 	// Side effect: modifies the class variable iterationCounter.
-    public static double bruteForceSolver(double loan, double rate, int n, double epsilon) {
-        double payment = loan / n;
-        for (int iterationCounter = 0; Math.abs(payment) > epsilon; iterationCounter++) {
+	public static double bruteForceSolver(double loan, double rate, int n, double epsilon) {
+        double payment = loan / n; /
+        iterationCounter = 0;
+
+        while (true) {
+            iterationCounter++; 
             double balance = endBalance(loan, rate, n, payment);
-            payment += epsilon;
-            if (balance <= epsilon) {
+            
+            if (Math.abs(balance) <= epsilon) {
                 return payment;
             }
+
+            payment += epsilon; 
         }
-        return payment;
     }
     
     
@@ -59,23 +63,23 @@ public class LoanCalc {
 	// Given: the sum of the loan, the periodical interest rate (as a percentage),
 	// the number of periods (n), and epsilon, the approximation's accuracy
 	// Side effect: modifies the class variable iterationCounter.
-public static double bisectionSolver(double loan, double rate, int n, double epsilon) {  
-    double payment = 0;
-    double a = 0;
-    double b = loan;
-    iterationCounter = 0;
+	public static double bisectionSolver(double loan, double rate, int n, double epsilon) {  
+        double payment = 0;
+        double a = 0;
+        double b = loan;
+        iterationCounter = 0;
 
-    for (; b - a >= epsilon; iterationCounter++) {
-        payment = (a + b) / 2;
-        double target = endBalance(loan, rate, n, payment);
-        if (target > 0) {
-            a = payment;
-        } else {
-            b = payment;
+        for (; b - a >= epsilon; iterationCounter++) {
+            payment = (a + b) / 2;
+            double target = endBalance(loan, rate, n, payment);
+            if (target > 0) {
+                a = payment;
+            } else {
+                b = payment;
+            }
         }
+        return payment;
     }
-    return payment;
-}
 
 }
 
