@@ -60,25 +60,6 @@ public class LoanCalc {
 	// Given: the sum of the loan, the periodical interest rate (as a percentage),
 	// the number of periods (n), and epsilon, the approximation's accuracy
 	// Side effect: modifies the class variable iterationCounter.
-    public static double bisectionSolver(double loan, double rate, int n, double epsilon) {  
-
-		double g = loan / (double) n;
-		double a = g;
-		double b = g + epsilon;
-		double c = (a + b) / 2;
-		iterationCounter = 0;
-
-		if (endBalance(loan, rate, n, c) > 0) {
-			do {
-				iterationCounter++;
-				c = (a + b) / 2;
-				if (endBalance(loan, rate, n, c) > 0) {
-					a = c;
-				} else {
-					b = c;
-				}
-			} while (endBalance(loan, rate, n, c) > 0);
-		}
-		return 0;
-    }
+  
+    
 }
